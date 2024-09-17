@@ -16,13 +16,13 @@ jobs:
           switches: -avzr --delete
           path: web/
           remote_path: ${{ secrets.INTEROP_SEEMANN_IO_WEBSITE_DIR }}
-          remote_host: interop.seemann.io
+          remote_host: ${{ secrets.INTEROP_SEEMANN_IO_HOST }}
           remote_user: ${{ secrets.INTEROP_SEEMANN_IO_USER }}
           remote_key: ${{ secrets.INTEROP_SEEMANN_IO_SSH_KEY }}
       - name: Restart server
         uses: appleboy/ssh-action@029f5b4aeeeb58fdfe1410a5d17f967dacf36262 # v1.0.3
         with:
-          host: interop.seemann.io
+          host: ${{ secrets.INTEROP_SEEMANN_IO_HOST }}
           username: ${{ secrets.INTEROP_SEEMANN_IO_USER }}
           key: ${{ secrets.INTEROP_SEEMANN_IO_SSH_KEY }}
           script: service website restart

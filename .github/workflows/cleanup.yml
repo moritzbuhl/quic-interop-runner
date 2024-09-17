@@ -10,7 +10,7 @@ jobs:
       - name: Delete old logs on the server
         uses: appleboy/ssh-action@029f5b4aeeeb58fdfe1410a5d17f967dacf36262 # v1.0.3
         with:
-          host: interop.seemann.io
+          host: ${{ secrets.INTEROP_SEEMANN_IO_HOST }}
           username: ${{ secrets.INTEROP_SEEMANN_IO_USER }}
           key: ${{ secrets.INTEROP_SEEMANN_IO_SSH_KEY }}
           script: |

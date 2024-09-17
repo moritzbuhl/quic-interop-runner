@@ -236,7 +236,7 @@ jobs:
           switches: -avzr --relative
           path: logs/./${{ matrix.server }}_${{ matrix.client }}/
           remote_path: ${{ vars.LOG_DIR }}/${{ needs.config.outputs.logname }}
-          remote_host: interop.seemann.io
+          remote_host: ${{ secrets.INTEROP_SEEMANN_IO_HOST }}
           remote_user: ${{ secrets.INTEROP_SEEMANN_IO_USER }}
           remote_key: ${{ secrets.INTEROP_SEEMANN_IO_SSH_KEY }}
       - name: Upload result
@@ -284,14 +284,14 @@ jobs:
           switches: -avzr
           path: result.json
           remote_path: ${{ vars.LOG_DIR }}/${{ needs.config.outputs.logname }}/
-          remote_host: interop.seemann.io
+          remote_host: ${{ secrets.INTEROP_SEEMANN_IO_HOST }}
           remote_user: ${{ secrets.INTEROP_SEEMANN_IO_USER }}
           remote_key: ${{ secrets.INTEROP_SEEMANN_IO_SSH_KEY }}
       - name: Point interop.seemann.io to the latest result 
         uses: appleboy/ssh-action@029f5b4aeeeb58fdfe1410a5d17f967dacf36262 # v1.0.3
         if: ${{ github.event_name == 'schedule' }}
         with:
-          host: interop.seemann.io
+          host: ${{ secrets.INTEROP_SEEMANN_IO_HOST }}
           username: ${{ secrets.INTEROP_SEEMANN_IO_USER }}
           key: ${{ secrets.INTEROP_SEEMANN_IO_SSH_KEY }}
           envs: LOGNAME
