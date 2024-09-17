@@ -1,9 +1,4 @@
 {
-  "quic-go": {
-    "image": "martenseemann/quic-go-interop:latest",
-    "url": "https://github.com/lucas-clemente/quic-go",
-    "role": "both"
-  },
   "ngtcp2": {
     "image": "ghcr.io/ngtcp2/ngtcp2-interop:latest",
     "url": "https://github.com/ngtcp2/ngtcp2",
