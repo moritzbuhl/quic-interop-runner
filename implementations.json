@@ -84,7 +84,7 @@
     "url": "https://pkg.go.dev/golang.org/x/net/internal/quic",
     "role": "both"
   },
-  "ngtcp2": {
+  "linux-quic": {
     "image": "ghcr.io/moritzbuhl/quic-interop:latest",
     "url": "https://github.com/lxin/quic",
     "role": "both"
