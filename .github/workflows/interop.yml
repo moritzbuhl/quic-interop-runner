@@ -164,7 +164,7 @@ jobs:
       - name: Download and Install
         run: |
           sudo apt-get install make autoconf automake libtool pkg-config gnutls-dev linux-headers-$(uname -r)
-          git clone --quiet https://github.com/lxin/quic.git linux-quiccd linux-quic
+          git clone https://github.com/lxin/quic.git linux-quiccd linux-quic
           ./autogen.sh
           ./configure --prefix=/usr 
           make -C modules
