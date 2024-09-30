@@ -169,7 +169,7 @@ jobs:
           ./autogen.sh
           ./configure --prefix=/usr 
           make -C modules
-          make -C modules install
+          sudo make -C modules install
   tests:
     needs: [ wireshark, config, docker-pull-tools, docker-pull-images, load-quic-lkm ]
     runs-on: ubuntu-latest
