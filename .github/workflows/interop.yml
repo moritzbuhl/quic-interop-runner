@@ -158,6 +158,7 @@ jobs:
           path: ${{ matrix.image }}.tar.gz
           if-no-files-found: error
   load-quic-lkm:
+    runs-on: ubuntu-latest
     name: Load Linux QUIC LKM
     steps:
       - name: Download and Install
