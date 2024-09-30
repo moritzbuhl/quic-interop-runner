@@ -157,8 +157,20 @@ jobs:
           name: image-${{ matrix.image }}
           path: ${{ matrix.image }}.tar.gz
           if-no-files-found: error
+  load-quic-lkm:
+    name: Load Linux QUIC LKM
+    steps:
+      - name: Download and Install
+        run: |
+          apt-get install make autoconf automake libtool pkg-config gnutls-dev linux-headers-$(uname -r)
+          git clone --quiet https://github.com/lxin/quic.git linux-quiccd linux-quic
+          ./autogen.sh
+          ./configure --prefix=/usr PKG_CONFIG_PATH="$HOME/gnutls/build/lib/pkgc
+onfig"
+          make -C modules
+          make -C modules install
   tests:
-    needs: [ wireshark, config, docker-pull-tools, docker-pull-images ]
+    needs: [ wireshark, config, docker-pull-tools, docker-pull-images, load-quic-lkm ]
     runs-on: ubuntu-latest
     continue-on-error: true
     timeout-minutes: 45
