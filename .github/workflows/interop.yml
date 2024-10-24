@@ -167,6 +167,8 @@ jobs:
           git clone https://github.com/lxin/quic.git linux-quic
           cd linux-quic
           ./autogen.sh
+          mkdir -p /lib/modules/`uname -r`/kernel/net/quic && \
+          install -m 644 modules/include/uapi/linux/quic.h /usr/include/linux
           ./configure --prefix=/usr 
           make -C modules
           sudo make -C modules install
