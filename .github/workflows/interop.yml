@@ -157,24 +157,8 @@ jobs:
           name: image-${{ matrix.image }}
           path: ${{ matrix.image }}.tar.gz
           if-no-files-found: error
-  load-quic-lkm:
-    runs-on: ubuntu-latest
-    name: Load Linux QUIC LKM
-    steps:
-      - name: Download and Install
-        run: |
-          sudo apt-get update
-          sudo apt-get install make autoconf automake libtool pkg-config gnutls-dev linux-headers-$(uname -r)
-          git clone https://github.com/lxin/quic.git linux-quic
-          cd linux-quic
-          ./autogen.sh
-          mkdir -p /lib/modules/`uname -r`/kernel/net/quic && \
-          install -m 644 modules/include/uapi/linux/quic.h /usr/include/linux
-          ./configure --prefix=/usr 
-          make -C modules
-          sudo make -C modules install
   tests:
-    needs: [ wireshark, config, docker-pull-tools, docker-pull-images, load-quic-lkm ]
+    needs: [ wireshark, config, docker-pull-tools, docker-pull-images ]
     runs-on: ubuntu-latest
     continue-on-error: true
     timeout-minutes: 45
@@ -191,6 +175,18 @@ jobs:
           python-version: 3.8
       - name: Enable IPv6 support
         run: sudo modprobe ip6table_filter
+      - name: Download and Install
+        run: |
+          sudo apt-get update
+          sudo apt-get install make autoconf automake libtool pkg-config gnutls-dev linux-headers-$(uname -r)
+          git clone https://github.com/lxin/quic.git linux-quic
+          cd linux-quic
+          ./autogen.sh
+          mkdir -p /lib/modules/`uname -r`/kernel/net/quic && \
+          install -m 644 modules/include/uapi/linux/quic.h /usr/include/linux
+          ./configure --prefix=/usr 
+          make -C modules
+          sudo make -C modules install
       - run: docker image ls
       - name: Download quic-network-simulator image
         uses: actions/download-artifact@v4
